@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Online Education Platform</title>
+    <style>
+        /* Global Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
+        }
+
+        body {
+            background-color: #f9f9f9;
+            color: #333;
+        }
+
+        /* Container */
+        .container {
+            width: 90%;
+            margin: 20px auto;
+        }
+
+        /* Header Section */
+        .header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            color: #333;
+        }
+
+        .search-bar {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            margin: 20px 0;
+        }
+
+        .search-bar input {
+            width: 80%;
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+            outline: none;
+            font-size: 1rem;
+        }
+
+        /* Category Buttons */
+        .categories {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-bottom: 20px;
+        }
+
+        .categories button {
+            background-color: #fff;
+            border: 1px solid #ddd;
+            padding: 8px 15px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .categories button.active,
+        .categories button:hover {
+            background-color: #ff7f50;
+            color: #fff;
+            border-color: #ff7f50;
+        }
+
+        /* Course Cards Section */
+        .courses {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        .course-card {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .course-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .course-card h3 {
+            font-size: 1.3rem;
+            margin-bottom: 10px;
+            color: #333;
+        }
+
+        .course-card p {
+            color: #777;
+            font-size: 0.9rem;
+            margin-bottom: 10px;
+        }
+
+        .course-card span {
+            display: inline-block;
+            font-size: 0.8rem;
+            color: #555;
+            background-color: #f0f0f0;
+            padding: 5px 10px;
+            border-radius: 5px;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .search-bar input {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <h1>Explore Our Courses</h1>
+        </div>
+
+        <!-- Search Bar -->
+        <div class="search-bar">
+            <input type="text" id="search" placeholder="Search for courses...">
+        </div>
+
+        <!-- Category Buttons -->
+        <div class="categories" id="categories">
+            <button class="category-btn active" data-category="all">All</button>
+            <button class="category-btn" data-category="design">Design</button>
+            <button class="category-btn" data-category="programming">Programming</button>
+            <button class="category-btn" data-category="marketing">Marketing</button>
+            <button class="category-btn" data-category="business">Business</button>
+        </div>
+
+        <!-- Course Cards -->
+        <div class="courses" id="courses">
+            <!-- Course Cards will be generated dynamically -->
+        </div>
+    </div>
+
+    <script>
+        // Sample Course Data
+        const courses = [
+            { title: "UI/UX Design Basics", category: "design", duration: "2h 30m", description: "Learn the fundamentals of UI/UX design." },
+            { title: "Advanced JavaScript", category: "programming", duration: "3h 15m", description: "Deep dive into JavaScript concepts." },
+            { title: "Digital Marketing 101", category: "marketing", duration: "2h 00m", description: "Get started with digital marketing." },
+            { title: "Business Strategy Fundamentals", category: "business", duration: "1h 45m", description: "Learn key business strategies." },
+            { title: "React Development", category: "programming", duration: "4h 00m", description: "Master React for modern web development." },
+            { title: "Graphic Design Masterclass", category: "design", duration: "5h 30m", description: "Become a pro in graphic design." },
+            { title: "SEO and Content Strategy", category: "marketing", duration: "3h 00m", description: "Improve your SEO and content game." },
+            { title: "Entrepreneurship Essentials", category: "business", duration: "2h 15m", description: "Start your entrepreneurial journey." }
+        ];
+
+        const courseContainer = document.getElementById("courses");
+        const categoryButtons = document.querySelectorAll(".category-btn");
+        const searchInput = document.getElementById("search");
+
+        // Function to Display Courses
+        function displayCourses(filteredCourses) {
+            courseContainer.innerHTML = "";
+            filteredCourses.forEach(course => {
+                const card = `
+                    <div class="course-card">
+                        <h3>${course.title}</h3>
+                        <p>${course.description}</p>
+                        <span>${course.duration}</span>
+                    </div>
+                `;
+                courseContainer.innerHTML += card;
+            });
+        }
+
+        // Filter Courses by Category
+        categoryButtons.forEach(btn => {
+            btn.addEventListener("click", () => {
+                document.querySelector(".category-btn.active").classList.remove("active");
+                btn.classList.add("active");
+                const category = btn.dataset.category;
+                const filteredCourses = category === "all" ? courses : courses.filter(course => course.category === category);
+                displayCourses(filteredCourses);
+            });
+        });
+
+        // Search Functionality
+        searchInput.addEventListener("input", () => {
+            const searchValue = searchInput.value.toLowerCase();
+            const filteredCourses = courses.filter(course => 
+                course.title.toLowerCase().includes(searchValue) ||
+                course.description.toLowerCase().includes(searchValue)
+            );
+            displayCourses(filteredCourses);
+        });
+
+        // Initialize
+        displayCourses(courses);
+    </script>
+</body>
+</html>
