@@ -1,3 +1,1275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dynamic Learning Platform</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/@tailwindcss/browser@4"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    
+
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f0f4f7;
+            color: #333;
+            overflow-x: hidden;
+            padding-bottom: 80px; /* Give space for bottom nav */
+        }
+
+        /* Top Navigation Bar */
+        .top-nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background-color: #fff;
+            border-bottom: 1px solid #ddd;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 20px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+        }
+
+        .top-nav .logo {
+            font-size: 24px;
+            font-weight: 600;
+            color: #333;
+        }
+
+        /* Main Content Area */
+        .main-content {
+            margin-top: 60px;  /* Space for fixed top-nav */
+            padding: 20px;
+            min-height: 80vh;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            overflow-y: auto;
+            transition: all 0.5s ease;
+        }
+
+        /* Bottom Navigation Bar */
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            background-color: #fff;
+            border-top: 1px solid #ddd;
+            display: flex;
+            justify-content: space-around;
+            padding: 10px 0;
+            box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .bottom-nav a {
+            text-align: center;
+            color: #333;
+            text-decoration: none;
+            font-size: 18px;
+            padding: 10px;
+            display: block;
+        }
+
+        .bottom-nav a:hover {
+            background-color: #ddd;
+            border-radius: 50%;
+        }
+
+        /* Hide all sections by default */
+        .section {
+            display: none;
+        }
+
+        /* Show active section */
+        .section.active {
+            display: block;
+        }
+
+
+
+
+
+
+
+
+       
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        .contact-container {
+            width: 90%;
+            max-width: 1200px;
+            background: #fff;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            overflow: hidden;
+        }
+
+        .contact-left {
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+
+        .contact-right {
+            padding: 20px;
+        }
+
+        .contact-header {
+            margin-bottom: 20px;
+        }
+
+        .contact-header h1 {
+            font-size: 2rem;
+            color: #333;
+        }
+
+        .contact-header p {
+            font-size: 1rem;
+            color: #666;
+        }
+
+        .contact-details {
+            margin-bottom: 20px;
+            line-height: 1.8;
+        }
+
+        .contact-details p {
+            margin: 5px 0;
+        }
+
+        .contact-details strong {
+            color: #333;
+        }
+
+        .contact-form {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .contact-form input,
+        .contact-form textarea,
+        .contact-form button {
+            width: 100%;
+            padding: 12px;
+            font-size: 1rem;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        .contact-form input:focus,
+        .contact-form textarea:focus {
+            border-color: #4285f4;
+            outline: none;
+            box-shadow: 0 0 5px rgba(66, 133, 244, 0.3);
+        }
+
+        .contact-form button {
+            background: #4285f4;
+            color: white;
+            border: none;
+            cursor: pointer;
+            font-weight: bold;
+            transition: background 0.3s;
+        }
+
+        .contact-form button:hover {
+            background: #357ae8;
+        }
+
+        .contact-map {
+            border-radius: 8px;
+            overflow: hidden;
+            margin-top: 20px;
+        }
+
+        iframe {
+            width: 100%;
+            height: 300px;
+            border: none;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .contact-container {
+                grid-template-columns: 1fr;
+            }
+        }
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+        .learning-container {
+            max-width: 1200px;
+            margin: 20px auto;
+            padding: 20px;
+            background: #fff;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .learning-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .learning-header h1 {
+            font-size: 2.5rem;
+            color: #333;
+        }
+
+        .learning-header p {
+            font-size: 1rem;
+            color: #666;
+        }
+
+        .courses {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        .course-card {
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            overflow: hidden;
+            background: #fff;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s;
+        }
+
+        .course-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .course-card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .course-card-content {
+            padding: 20px;
+        }
+
+        .course-card-content h3 {
+            font-size: 1.5rem;
+            color: #333;
+            margin: 0 0 10px;
+        }
+
+        .course-card-content p {
+            font-size: 1rem;
+            color: #666;
+            margin: 0 0 20px;
+        }
+
+        .course-card-content .tag {
+            display: inline-block;
+            padding: 5px 10px;
+            font-size: 0.9rem;
+            color: #fff;
+            background-color: #4285f4;
+            border-radius: 20px;
+            margin-bottom: 15px;
+        }
+
+        .course-card-content .tag.subscription {
+            background-color: #f4b400;
+        }
+
+        .course-card-content button {
+            width: 100%;
+            padding: 10px;
+            font-size: 1rem;
+            background: #4285f4;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: background 0.3s;
+        }
+
+        .course-card-content button:hover {
+            background: #357ae8;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .learning-header h1 {
+                font-size: 2rem;
+            }
+
+            .course-card img {
+                height: 150px;
+            }
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- THIS IS COURSE PAGE CSS CODE-->
+
+
+
+/* Container */
+.container {
+            width: 90%;
+            margin: 20px auto;
+        }
+
+        /* Header Section */
+        .header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            color: #333;
+        }
+
+        .search-bar {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            margin: 20px 0;
+        }
+
+        .search-bar input {
+            width: 80%;
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+            outline: none;
+            font-size: 1rem;
+        }
+
+        /* Category Buttons */
+        .categories {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-bottom: 20px;
+        }
+
+        .categories button {
+            background-color: #fff;
+            border: 1px solid #ddd;
+            padding: 8px 15px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .categories button.active,
+        .categories button:hover {
+            background-color: #ff7f50;
+            color: #fff;
+            border-color: #ff7f50;
+        }
+
+        /* Course Cards Section */
+        .courses {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        .course-card {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .course-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .course-card h3 {
+            font-size: 1.3rem;
+            margin-bottom: 10px;
+            color: #333;
+        }
+
+        .course-card p {
+            color: #777;
+            font-size: 0.9rem;
+            margin-bottom: 10px;
+        }
+
+        .course-card span {
+            display: inline-block;
+            font-size: 0.8rem;
+            color: #555;
+            background-color: #f0f0f0;
+            padding: 5px 10px;
+            border-radius: 5px;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .search-bar input {
+                width: 100%;
+            }
+        }
+
+
+
+
+        <!--THIS IS  BLOG SEC CSS CODE-->
+
+        header {
+      background-color: #007bff;
+      color: white;
+      padding: 20px;
+      text-align: center;
+    }
+    .container {
+      width: 90%;
+      max-width: 1200px;
+      margin: auto;
+      padding: 20px 0;
+    }
+    .blog-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+    }
+    .blog-card {
+      background: white;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      width: 30%;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      overflow: hidden;
+      transition: transform 0.3s ease;
+    }
+    .blog-card:hover {
+      transform: translateY(-5px);
+    }
+    .blog-card img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+    }
+    .blog-content {
+      padding: 15px;
+    }
+    .blog-title {
+      font-size: 1.5em;
+      margin: 0 0 10px;
+      color: #333;
+    }
+    .blog-description {
+      font-size: 1em;
+      color: #666;
+      margin-bottom: 15px;
+    }
+    .read-more {
+      display: inline-block;
+      padding: 10px 15px;
+      background: #007bff;
+      color: white;
+      text-decoration: none;
+      border-radius: 5px;
+    }
+    .read-more:hover {
+      background: #0056b3;
+    }
+
+    /* Blog details section */
+    .blog-detail {
+      display: none;
+      background: white;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      margin: 20px 0;
+    }
+    .blog-detail img {
+      width: 100%;
+      border-radius: 8px;
+    }
+    .blog-detail h1 {
+      font-size: 2.5em;
+      margin-top: 20px;
+    }
+    .blog-detail p {
+      line-height: 1.6;
+      font-size: 1.1em;
+      color: #555;
+    }
+    .back-btn {
+      display: inline-block;
+      margin-top: 20px;
+      padding: 10px 15px;
+      background: #6c757d;
+      color: white;
+      text-decoration: none;
+      border-radius: 5px;
+    }
+    .back-btn:hover {
+      background: #5a6268;
+    }
+
+    <!--NAVBARAND HERO SECTIONCODE-->
+
+    
+    .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+        }
+
+        .search-bar {
+            width: 100%;
+            max-width: 600px;
+            margin: 1rem auto;
+        }
+
+        .search-bar input {
+            width: 100%;
+            padding: 0.75rem;
+            font-size: 1rem;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        .hero {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+        }
+
+        .hero .left {
+            flex: 1;
+            padding: 1rem;
+            max-width: 500px;
+        }
+
+        .hero .left h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .hero .left p {
+            font-size: 1rem;
+            line-height: 1.5;
+        }
+
+        .hero .right {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            max-width: 500px;
+        }
+
+        .hero .right img {
+            max-width: 100%;
+            border-radius: 10px;
+        }
+
+
+
+
+
+
+
+<!--IMAGESLIDER CODE-->
+
+
+
+
+    .slider {
+      position: relative;
+      width: 100%;
+      max-height: 500px;
+      overflow: hidden;
+    }
+
+    .slider-track {
+      display: flex;
+      animation: scroll 20s linear infinite;
+    }
+
+    .slider img {
+      width: 100%;
+      height: 500px;
+      object-fit: cover;
+      flex-shrink: 0;
+    }
+
+    @keyframes scroll {
+      0% { transform: translateX(0); }
+      20% { transform: translateX(-100%); }
+      40% { transform: translateX(-200%); }
+      60% { transform: translateX(-300%); }
+      80% { transform: translateX(-400%); }
+      100% { transform: translateX(0); }
+    }
+
+    .content {
+      text-align: center;
+      padding: 20px;
+    }
+
+    .content h1 {
+      font-size: 2rem;
+      margin-bottom: 10px;
+    }
+
+    .content p {
+      font-size: 1rem;
+      margin-bottom: 20px;
+    }
+
+    .learn-more {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-weight: 500;
+      color: #007bff;
+      cursor: pointer;
+      text-decoration: none;
+    }
+
+    .learn-more:hover {
+      text-decoration: underline;
+    }
+
+    .material-icons {
+      font-size: 1.2rem;
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+    </style>
+</head>
+<body>
+
+    <!-- Top Navigation Bar -->
+    <div class="top-nav">
+        <div class="logo">Learning Platform</div>
+    </div>
+
+    <!-- Main Content Area -->
+    <div class="main-content" id="content-container">
+        <!-- Home Section -->
+        <div id="home-section" class="section active">
+           
+           
+
+              <!-- Navbar -->
+    
+              <div class="container">
+                <!-- Search Bar -->
+                <div class="search-bar">
+                    <input type="text" placeholder="Search...">
+                </div>
+        
+                <!-- Hero Section -->
+                <section class="hero">
+                    <div class="left">
+                        <h1>Welcome to My Website</h1>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus luctus urna sed urna ultricies ac tempor dui sagittis.</p>
+                    </div>
+                    <div class="right">
+                        <img src="https://via.placeholder.com/500" alt="Hero Image">
+                    </div>
+                </section>
+            </div>
+
+
+
+
+
+
+<!-- Image Slider Section -->
+<div class="slider">
+  <div class="slider-track">
+    <img src="304f439199723f21270a440ffc0cb3a7 (2).jpg" alt="Slide 1">
+    <img src="304f439199723f21270a440ffc0cb3a7 (2).jpg" alt="Slide 2">
+    <img src="304f439199723f21270a440ffc0cb3a7 (2).jpg" alt="Slide 3">
+    <img src="304f439199723f21270a440ffc0cb3a7 (2).jpg" alt="Slide 4">
+    <img src="304f439199723f21270a440ffc0cb3a7 (2).jpg" alt="Slide 5">
+  </div>
+</div>
+
+<!-- Content Section -->
+<div class="content">
+  <h1>Discover More</h1>
+  <p>Explore the endless possibilities with our innovative solutions. Let us guide you to success.</p>
+  <a href="#" class="learn-more">
+    <span>Learn More</span>
+    <span class="material-icons">arrow_forward</span>
+  </a>
+</div>
+
+<script src="https://fonts.googleapis.com/icon?family=Material+Icons"></script>
+
+
+
+
+
+        </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        <!-- Modules Section -->
+        
+
+        <div id="modules-section" class="section">
+            <h2>Modules Section</h2>
+
+
+      
+
+            <div class="bg-white py-24 sm:py-32">
+                <div class="mx-auto max-w-7xl px-6 lg:px-8">
+                  <div class="mx-auto max-w-2xl lg:mx-0">
+                    <h2 class="text-4xl font-semibold tracking-tight text-pretty text-gray-900 sm:text-5xl">From the blog</h2>
+                    <p class="mt-2 text-lg/8 text-gray-600">Learn how to grow your business with our expert advice.</p>
+                  </div>
+                  <div class="mx-auto mt-10 grid max-w-2xl grid-cols-1 gap-x-8 gap-y-16 border-t border-gray-200 pt-10 sm:mt-16 sm:pt-16 lg:mx-0 lg:max-w-none lg:grid-cols-3">
+                    <article class="flex max-w-xl flex-col items-start justify-between">
+                      <div class="flex items-center gap-x-4 text-xs">
+                        <time datetime="2020-03-16" class="text-gray-500">Mar 16, 2020</time>
+                        <a href="#" class="relative z-10 rounded-full bg-gray-50 px-3 py-1.5 font-medium text-gray-600 hover:bg-gray-100">Marketing</a>
+                      </div>
+                      <div class="group relative">
+                        <h3 class="mt-3 text-lg/6 font-semibold text-gray-900 group-hover:text-gray-600">
+                          <a href="#">
+                            <span class="absolute inset-0"></span>
+                            Boost your conversion rate
+                          </a>
+                        </h3>
+                        <p class="mt-5 line-clamp-3 text-sm/6 text-gray-600">Illo sint voluptas. Error voluptates culpa eligendi. Hic vel totam vitae illo. Non aliquid explicabo necessitatibus unde. Sed exercitationem placeat consectetur nulla deserunt vel. Iusto corrupti dicta.</p>
+                      </div>
+                      <div class="relative mt-8 flex items-center gap-x-4">
+                        <img src="https://images.unsplash.com/photo-1519244703995-f4e0f30006d5?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="" class="size-10 rounded-full bg-gray-50">
+                        <div class="text-sm/6">
+                          <p class="font-semibold text-gray-900">
+                            <a href="#">
+                              <span class="absolute inset-0"></span>
+                              Michael Foster
+                            </a>
+                          </p>
+                          <p class="text-gray-600">Co-Founder / CTO</p>
+                        </div>
+
+                        
+
+
+                      </div>
+                    </article>
+              
+                    <!-- More posts... -->
+                  </div>
+                </div>
+              </div>
+<br><br>
+              <div class="bg-white py-24 sm:py-32">
+                <div class="mx-auto max-w-7xl px-6 lg:px-8">
+                  <div class="mx-auto max-w-2xl lg:mx-0">
+                    <h2 class="text-4xl font-semibold tracking-tight text-pretty text-gray-900 sm:text-5xl">From the blog</h2>
+                    <p class="mt-2 text-lg/8 text-gray-600">Learn how to grow your business with our expert advice.</p>
+                  </div>
+                  <div class="mx-auto mt-10 grid max-w-2xl grid-cols-1 gap-x-8 gap-y-16 border-t border-gray-200 pt-10 sm:mt-16 sm:pt-16 lg:mx-0 lg:max-w-none lg:grid-cols-3">
+                    <article class="flex max-w-xl flex-col items-start justify-between">
+                      <div class="flex items-center gap-x-4 text-xs">
+                        <time datetime="2020-03-16" class="text-gray-500">Mar 16, 2020</time>
+                        <a href="pages/pages1.html" class="relative z-10 rounded-full bg-gray-50 px-3 py-1.5 font-medium text-gray-600 hover:bg-gray-100">Marketing</a>
+                      </div>
+                      <div class="group relative">
+                        <h3 class="mt-3 text-lg/6 font-semibold text-gray-900 group-hover:text-gray-600">
+                          <a href="pages/pages1.html">
+                            <span class="absolute inset-0"></span>
+                            Boost your conversion rate
+                          </a>
+                        </h3>
+                        <p class="mt-5 line-clamp-3 text-sm/6 text-gray-600">Illo sint voluptas. Error voluptates culpa eligendi. Hic vel totam vitae illo. Non aliquid explicabo necessitatibus unde. Sed exercitationem placeat consectetur nulla deserunt vel. Iusto corrupti dicta.</p>
+                      </div>
+                      <div class="relative mt-8 flex items-center gap-x-4">
+                        <img src="https://images.unsplash.com/photo-1519244703995-f4e0f30006d5?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="" class="size-10 rounded-full bg-gray-50">
+                        <div class="text-sm/6">
+                          <p class="font-semibold text-gray-900">
+                            <a href="pages/pages1.html">
+                              <span class="absolute inset-0"></span>
+                              Michael Foster
+                            </a>
+                          </p>
+                          <p class="text-gray-600">Co-Founder / CTO</p>
+                        </div>
+
+                        
+
+
+                      </div>
+                    </article>
+              
+                    <!-- More posts... -->
+                  </div>
+                </div>
+              </div>
+
+
+
+
+        </div>
+
+
+
+
+
+
+        <!-- Learning Section -->
+        <div id="learning-section" class="section">
+            <h2>Learning Section</h2>
+            
+
+
+
+            <div class="container">
+                <!-- Header -->
+                <div class="header">
+                    <h1>Explore Our Courses</h1>
+                </div>
+        
+                <!-- Search Bar -->
+                <div class="search-bar">
+                    <input type="text" id="search" placeholder="Search for courses...">
+                </div>
+        
+                <!-- Category Buttons -->
+                <div class="categories" id="categories">
+                    <button class="category-btn active" data-category="all">All</button>
+                    <button class="category-btn" data-category="design">Design</button>
+                    <button class="category-btn" data-category="programming">Programming</button>
+                    <button class="category-btn" data-category="marketing">Marketing</button>
+                    <button class="category-btn" data-category="business">Business</button>
+                </div>
+        
+                <!-- Course Cards -->
+                <div class="courses" id="courses">
+                    <!-- Course Cards will be generated dynamically -->
+                </div>
+            </div>
+        
+            <script>
+                // Sample Course Data
+                const courses = [
+                    { title: "UI/UX Design Basics", category: "design", duration: "2h 30m", description: "Learn the fundamentals of UI/UX design." },
+                    { title: "Advanced JavaScript", category: "programming", duration: "3h 15m", description: "Deep dive into JavaScript concepts." },
+                    { title: "Digital Marketing 101", category: "marketing", duration: "2h 00m", description: "Get started with digital marketing." },
+                    { title: "Business Strategy Fundamentals", category: "business", duration: "1h 45m", description: "Learn key business strategies." },
+                    { title: "React Development", category: "programming", duration: "4h 00m", description: "Master React for modern web development." },
+                    { title: "Graphic Design Masterclass", category: "design", duration: "5h 30m", description: "Become a pro in graphic design." },
+                    { title: "SEO and Content Strategy", category: "marketing", duration: "3h 00m", description: "Improve your SEO and content game." },
+                    { title: "Entrepreneurship Essentials", category: "business", duration: "2h 15m", description: "Start your entrepreneurial journey." }
+                ];
+        
+                const courseContainer = document.getElementById("courses");
+                const categoryButtons = document.querySelectorAll(".category-btn");
+                const searchInput = document.getElementById("search");
+        
+                // Function to Display Courses
+                function displayCourses(filteredCourses) {
+                    courseContainer.innerHTML = "";
+                    filteredCourses.forEach(course => {
+                        const card = `
+                            <div class="course-card">
+                                <h3>${course.title}</h3>
+                                <p>${course.description}</p>
+                                <span>${course.duration}</span>
+                            </div>
+                        `;
+                        courseContainer.innerHTML += card;
+                    });
+                }
+        
+                // Filter Courses by Category
+                categoryButtons.forEach(btn => {
+                    btn.addEventListener("click", () => {
+                        document.querySelector(".category-btn.active").classList.remove("active");
+                        btn.classList.add("active");
+                        const category = btn.dataset.category;
+                        const filteredCourses = category === "all" ? courses : courses.filter(course => course.category === category);
+                        displayCourses(filteredCourses);
+                    });
+                });
+        
+                // Search Functionality
+                searchInput.addEventListener("input", () => {
+                    const searchValue = searchInput.value.toLowerCase();
+                    const filteredCourses = courses.filter(course => 
+                        course.title.toLowerCase().includes(searchValue) ||
+                        course.description.toLowerCase().includes(searchValue)
+                    );
+                    displayCourses(filteredCourses);
+                });
+        
+                // Initialize
+                displayCourses(courses);
+            </script>
+
+
+
+
+
+        </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        <!-- Outcomes Section -->
+        <div id="outcomes-section" class="section">
+            <h2>Learning Outcomes</h2>
+            <p>At the end of this course, you will be proficient in business strategies, leadership, marketing, and financial management.</p>
+        </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        <!-- Contact Section -->
+        <div id="contact-section" class="section">
+            <h2>Contact Section</h2>
+            
+           
+
+            <div class="relative isolate overflow-hidden bg-white px-6 py-24 sm:py-32 lg:overflow-visible lg:px-0">
+                <div class="absolute inset-0 -z-10 overflow-hidden">
+                  <svg class="absolute top-0 left-[max(50%,25rem)] h-[64rem] w-[128rem] -translate-x-1/2 stroke-gray-200 [mask-image:radial-gradient(64rem_64rem_at_top,white,transparent)]" aria-hidden="true">
+                    <defs>
+                      <pattern id="e813992c-7d03-4cc4-a2bd-151760b470a0" width="200" height="200" x="50%" y="-1" patternUnits="userSpaceOnUse">
+                        <path d="M100 200V.5M.5 .5H200" fill="none" />
+                      </pattern>
+                    </defs>
+                    <svg x="50%" y="-1" class="overflow-visible fill-gray-50">
+                      <path d="M-100.5 0h201v201h-201Z M699.5 0h201v201h-201Z M499.5 400h201v201h-201Z M-300.5 600h201v201h-201Z" stroke-width="0" />
+                    </svg>
+                    <rect width="100%" height="100%" stroke-width="0" fill="url(#e813992c-7d03-4cc4-a2bd-151760b470a0)" />
+                  </svg>
+                </div>
+                <div class="mx-auto grid max-w-2xl grid-cols-1 gap-x-8 gap-y-16 lg:mx-0 lg:max-w-none lg:grid-cols-2 lg:items-start lg:gap-y-10">
+                  <div class="lg:col-span-2 lg:col-start-1 lg:row-start-1 lg:mx-auto lg:grid lg:w-full lg:max-w-7xl lg:grid-cols-2 lg:gap-x-8 lg:px-8">
+                    <div class="lg:pr-4">
+                      <div class="lg:max-w-lg">
+                        <p class="text-base/7 font-semibold text-indigo-600">Deploy faster</p>
+                        <h1 class="mt-2 text-4xl font-semibold tracking-tight text-pretty text-gray-900 sm:text-5xl">A better workflow</h1>
+                        <p class="mt-6 text-xl/8 text-gray-700">Aliquet nec orci mattis amet quisque ullamcorper neque, nibh sem. At arcu, sit dui mi, nibh dui, diam eget aliquam. Quisque id at vitae feugiat egestas.</p>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="-mt-12 -ml-12 p-12 lg:sticky lg:top-4 lg:col-start-2 lg:row-span-2 lg:row-start-1 lg:overflow-hidden">
+                    <img class="w-[48rem] max-w-none rounded-xl bg-gray-900 ring-1 shadow-xl ring-gray-400/10 sm:w-[57rem]" src="https://tailwindui.com/plus/img/component-images/dark-project-app-screenshot.png" alt="">
+                  </div>
+                  <div class="lg:col-span-2 lg:col-start-1 lg:row-start-2 lg:mx-auto lg:grid lg:w-full lg:max-w-7xl lg:grid-cols-2 lg:gap-x-8 lg:px-8">
+                    <div class="lg:pr-4">
+                      <div class="max-w-xl text-base/7 text-gray-700 lg:max-w-lg">
+                        <p>Faucibus commodo massa rhoncus, volutpat. Dignissim sed eget risus enim. Mattis mauris semper sed amet vitae sed turpis id. Id dolor praesent donec est. Odio penatibus risus viverra tellus varius sit neque erat velit. Faucibus commodo massa rhoncus, volutpat. Dignissim sed eget risus enim. Mattis mauris semper sed amet vitae sed turpis id.</p>
+                        <ul role="list" class="mt-8 space-y-8 text-gray-600">
+                          <li class="flex gap-x-3">
+                            <svg class="mt-1 size-5 flex-none text-indigo-600" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" data-slot="icon">
+                              <path fill-rule="evenodd" d="M5.5 17a4.5 4.5 0 0 1-1.44-8.765 4.5 4.5 0 0 1 8.302-3.046 3.5 3.5 0 0 1 4.504 4.272A4 4 0 0 1 15 17H5.5Zm3.75-2.75a.75.75 0 0 0 1.5 0V9.66l1.95 2.1a.75.75 0 1 0 1.1-1.02l-3.25-3.5a.75.75 0 0 0-1.1 0l-3.25 3.5a.75.75 0 1 0 1.1 1.02l1.95-2.1v4.59Z" clip-rule="evenodd" />
+                            </svg>
+                            <span><strong class="font-semibold text-gray-900">Push to deploy.</strong> Lorem ipsum, dolor sit amet consectetur adipisicing elit. Maiores impedit perferendis suscipit eaque, iste dolor cupiditate blanditiis ratione.</span>
+                          </li>
+                          <li class="flex gap-x-3">
+                            <svg class="mt-1 size-5 flex-none text-indigo-600" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" data-slot="icon">
+                              <path fill-rule="evenodd" d="M10 1a4.5 4.5 0 0 0-4.5 4.5V9H5a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-6a2 2 0 0 0-2-2h-.5V5.5A4.5 4.5 0 0 0 10 1Zm3 8V5.5a3 3 0 1 0-6 0V9h6Z" clip-rule="evenodd" />
+                            </svg>
+                            <span><strong class="font-semibold text-gray-900">SSL certificates.</strong> Anim aute id magna aliqua ad ad non deserunt sunt. Qui irure qui lorem cupidatat commodo.</span>
+                          </li>
+                          <li class="flex gap-x-3">
+                            <svg class="mt-1 size-5 flex-none text-indigo-600" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" data-slot="icon">
+                              <path d="M4.632 3.533A2 2 0 0 1 6.577 2h6.846a2 2 0 0 1 1.945 1.533l1.976 8.234A3.489 3.489 0 0 0 16 11.5H4c-.476 0-.93.095-1.344.267l1.976-8.234Z" />
+                              <path fill-rule="evenodd" d="M4 13a2 2 0 1 0 0 4h12a2 2 0 1 0 0-4H4Zm11.24 2a.75.75 0 0 1 .75-.75H16a.75.75 0 0 1 .75.75v.01a.75.75 0 0 1-.75.75h-.01a.75.75 0 0 1-.75-.75V15Zm-2.25-.75a.75.75 0 0 0-.75.75v.01c0 .414.336.75.75.75H13a.75.75 0 0 0 .75-.75V15a.75.75 0 0 0-.75-.75h-.01Z" clip-rule="evenodd" />
+                            </svg>
+                            <span><strong class="font-semibold text-gray-900">Database backups.</strong> Ac tincidunt sapien vehicula erat auctor pellentesque rhoncus. Et magna sit morbi lobortis.</span>
+                          </li>
+                        </ul>
+                        <p class="mt-8">Et vitae blandit facilisi magna lacus commodo. Vitae sapien duis odio id et. Id blandit molestie auctor fermentum dignissim. Lacus diam tincidunt ac cursus in vel. Mauris varius vulputate et ultrices hac adipiscing egestas. Iaculis convallis ac tempor et ut. Ac lorem vel integer orci.</p>
+                        <h2 class="mt-16 text-2xl font-bold tracking-tight text-gray-900">No server? No problem.</h2>
+                        <p class="mt-6">Id orci tellus laoreet id ac. Dolor, aenean leo, ac etiam consequat in. Convallis arcu ipsum urna nibh. Pharetra, euismod vitae interdum mauris enim, consequat vulputate nibh. Maecenas pellentesque id sed tellus mauris, ultrices mauris. Tincidunt enim cursus ridiculus mi. Pellentesque nam sed nullam sed diam turpis ipsum eu a sed convallis diam.</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
+              
+
+           
+                    
+    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <!-- Bottom Navigation Bar -->
+   <!-- Bottom Navigation Bar -->
+<div class="bottom-nav">
+    <a href="#" id="home-icon">
+        <!-- Home Icon -->
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"></path>
+        </svg>
+    </a>
+    <a href="#" id="modules-icon">
+        <!-- Modules Icon -->
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M4 6H20M4 12H20M4 18H20M8 6V18M16 6V18"></path>
+        </svg>
+    </a>
+    <a href="#" id="learning-icon">
+        <!-- Learning Icon -->
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 8V4m0 0L8 6m4-2l4 2M18 12l-6 6m6-6l-6-6M12 16v4"></path>
+        </svg>
+    </a>
+    <a href="#" id="outcomes-icon">
+        <!-- Outcomes Icon -->
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 3v18M5 10l7 7 7-7"></path>
+        </svg>
+    </a>
+    <a href="#" id="contact-icon">
+        <!-- Contact Icon -->
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M20 6v12M4 6v12M12 3v18"></path>
+        </svg>
+    </a>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <!-- JavaScript for Dynamic Content Switching -->
+    <script>
+        // Function to show the selected section and hide the others
+        function showSection(sectionId) {
+            // Hide all sections
+            const sections = document.querySelectorAll('.section');
+            sections.forEach(section => section.classList.remove('active'));
+
+            // Show the selected section
+            const selectedSection = document.getElementById(sectionId);
+            selectedSection.classList.add('active');
+        }
+
+        // Event listeners for bottom navigation icons
+        document.getElementById("home-icon").addEventListener("click", function() {
+            showSection("home-section");
+        });
+
+        document.getElementById("modules-icon").addEventListener("click", function() {
+            showSection("modules-section");
+        });
+
+        document.getElementById("learning-icon").addEventListener("click", function() {
+            showSection("learning-section");
+        });
+
+        document.getElementById("outcomes-icon").addEventListener("click", function() {
+            showSection("outcomes-section");
+        });
+
+        document.getElementById("contact-icon").addEventListener("click", function() {
+            showSection("contact-section");
+        });
+    </script>
+
+</body>
+</html>
    
      
         
