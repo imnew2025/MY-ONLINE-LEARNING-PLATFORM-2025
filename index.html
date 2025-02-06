@@ -11,6 +11,95 @@
 
 
     <style>
+
+
+
+
+/* Ensure the page scales correctly on mobile */
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  max-width: 100%;
+  overflow-x: hidden;
+  font-size: 16px;
+  line-height: 1.5;
+}
+
+/* Make images and iframes responsive */
+img, iframe, video {
+  max-width: 100%;
+  height: auto;
+}
+
+/* Responsive typography */
+h1 { font-size: 2rem; }
+h2 { font-size: 1.75rem; }
+h3 { font-size: 1.5rem; }
+p, a, li { font-size: 1rem; }
+
+/* Flexbox for better layout on mobile */
+.container {
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+}
+
+/* Make sure buttons and inputs are touch-friendly */
+button, input, select, textarea {
+  font-size: 1rem;
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+}
+
+/* Ensure navbars or menus adjust on small screens */
+.navbar {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.navbar a {
+  padding: 10px;
+  display: block;
+}
+
+/* Media query for screens smaller than 768px */
+@media (max-width: 768px) {
+  .container {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .navbar {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  h1 { font-size: 1.8rem; }
+  h2 { font-size: 1.5rem; }
+  h3 { font-size: 1.3rem; }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
         * {
             margin: 0;
             padding: 0;
